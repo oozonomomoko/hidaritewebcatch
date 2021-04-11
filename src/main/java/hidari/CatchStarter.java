@@ -2,7 +2,7 @@ package hidari;
 
 import hidari.dto.CatchStep;
 import hidari.dto.Operate;
-import javafx.util.Pair;
+import hidari.dto.Pair;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -38,7 +38,7 @@ public class CatchStarter {
     /**
      * 初始化爬虫线程，单线程
      */
-    private static void init(){
+    private static void init() {
         if (null == thread || thread.isTerminated())
             thread = Executors.newSingleThreadExecutor();
         // 初始化下载线程
@@ -47,6 +47,7 @@ public class CatchStarter {
 
     /**
      * 爬虫开始
+     *
      * @param steps
      * @param source
      */
@@ -84,7 +85,7 @@ public class CatchStarter {
     }
 
     // 爬虫进度
-    private static void addProgress(JProgressBar progress){
+    private static void addProgress(JProgressBar progress) {
         try {
             Thread.sleep(1);
         } catch (InterruptedException e) {
@@ -98,7 +99,7 @@ public class CatchStarter {
         downloadProgress.setMaximum(downloadProgress.getMaximum() + max);
     }
 
-    public static synchronized void addDownloadProgress(){
+    public static synchronized void addDownloadProgress() {
         addProgress(downloadProgress);
     }
 
@@ -214,26 +215,40 @@ public class CatchStarter {
                 }
                 break;
             case 4:
-                int min,max;
-                boolean isChar = false;
+                int min, max;
+                boolean isChar;
+                int fixedLen = 0;
+                String fixedChar = null;
                 try {
-                    Pair<Boolean, Integer> minPair = parsePage(replaceVar(catchStep.getPageMin(), variables));
+                    String minStr = replaceVar(catchStep.getPageMin(), variables);
+                    if (minStr.contains("|")) {
+                        String[] split = minStr.split("\\|");
+                        if (split.length != 3) {
+                            Log.error(logpre + Operate.OPERATE_PAGE.getOperateName() + "固定长度格式应为：{length}|{fixedChar}|{min}");
+                            return;
+                        }
+                        fixedLen = Integer.valueOf(split[0]);
+                        fixedChar = split[1];
+                        minStr = split[2];
+                    }
+                    Pair<Boolean, Integer> minPair = parsePage(minStr);
                     Pair<Boolean, Integer> maxPair = parsePage(replaceVar(catchStep.getPageMax(), variables));
-                    min = minPair.getValue();
-                    max = maxPair.getValue();
-                    isChar = minPair.getKey() && maxPair.getKey();
+                    min = minPair.getRight();
+                    max = maxPair.getRight();
+                    Log.info(logpre + Operate.OPERATE_PAGE.getOperateName() + "页码:" + catchStep.getPageMin() + "~" + catchStep.getPageMax());
+                    isChar = minPair.getLeft() && maxPair.getLeft();
                 } catch (NumberFormatException e) {
-                    Log.info(logpre + Operate.OPERATE_PAGE.getOperateName() + "替换页码失败:" + catchStep.getPageMin() + "~" + catchStep.getPageMax());
+                    Log.error(logpre + Operate.OPERATE_PAGE.getOperateName() + "替换页码失败:" + catchStep.getPageMin() + "~" + catchStep.getPageMax());
                     return;
                 }
                 if (min > max) {
-                    Log.info(logpre + Operate.OPERATE_PAGE.getOperateName() + "页码错误:" + catchStep.getPageMin() + "~" + catchStep.getPageMax());
+                    Log.error(logpre + Operate.OPERATE_PAGE.getOperateName() + "页码错误:" + catchStep.getPageMin() + "~" + catchStep.getPageMax());
                     return;
                 }
                 for (String url : source) {
                     List<String> temp = new ArrayList<>();
                     for (int i = min; i <= max; i++) {
-                        String nexStr = url.replaceFirst("\\{page\\}", isChar ? Character.toString((char)i) : String.valueOf(i));
+                        String nexStr = url.replaceFirst("\\{page\\}", getReplaceTarget(i, isChar, fixedLen, fixedChar));
                         temp.add(nexStr);
                     }
 //                    Log.info(logpre + Operate.OPERATE_PAGE.getOperateName() + url + "-->" + temp);
@@ -253,14 +268,26 @@ public class CatchStarter {
         }
     }
 
-    private static Pair<Boolean, Integer> parsePage(String str){
+    private static String getReplaceTarget(int i, boolean isChar, int fixedLen, String fixedChar) {
+        String result = isChar ? Character.toString((char) i) : String.valueOf(i);
+        if (fixedLen == 0) {
+            return result;
+        }
+        String tmp = "";
+        for (int n = 0; n < fixedLen - result.length(); n++) {
+            tmp += fixedChar;
+        }
+        return tmp + result;
+    }
+
+    private static Pair<Boolean, Integer> parsePage(String str) {
         if (str.length() != 1) {
             return new Pair<>(false, Integer.valueOf(str));
         }
         try {
             return new Pair<>(false, Integer.valueOf(str));
         } catch (NumberFormatException e) {
-            return new Pair<>(true, (int)str.charAt(0));
+            return new Pair<>(true, (int) str.charAt(0));
         }
 
     }
@@ -284,7 +311,7 @@ public class CatchStarter {
             }
             return null;
         } else if (next.getOperateType() == Operate.OPERATE_VAR.getOperateType()
-                 && next.getVarOperate() == Operate.VAR_ADD.getOperateType()) {
+                && next.getVarOperate() == Operate.VAR_ADD.getOperateType()) {
             String value = replaceVar(next.getVarValue(), variables);
             variables.put(next.getVarName(), value);
             Log.info(logpre + Operate.OPERATE_VAR.getOperateName() + "新增变量成功," + next.getVarName() + ":" + value);
@@ -298,10 +325,11 @@ public class CatchStarter {
     private static String replaceVar(String src, Map<String, String> variables, boolean file) {
         Set<Map.Entry<String, String>> entrys = variables.entrySet();
         for (Map.Entry<String, String> entry : entrys) {
-            src = src.replace("{"+entry.getKey()+"}", file ? RegUtil.getLegalName(entry.getValue()) : entry.getValue());
+            src = src.replace("{" + entry.getKey() + "}", file ? RegUtil.getLegalName(entry.getValue()) : entry.getValue());
         }
         return src;
     }
+
     private static String replaceVar(String src, Map<String, String> variables) {
         return replaceVar(src, variables, false);
     }
@@ -376,7 +404,7 @@ public class CatchStarter {
 
     public static void stop() {
         Downloader.stop();
-        if (null != thread){
+        if (null != thread) {
             thread.shutdownNow();
             while (true) {
                 try {

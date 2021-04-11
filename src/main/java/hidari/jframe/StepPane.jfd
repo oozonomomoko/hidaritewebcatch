@@ -1,0 +1,298 @@
+JFDML JFormDesigner: "7.0.0.6.255" Java: "1.8.0_152-release" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.FlowLayout ) ) {
+			name: "this"
+			"background": new java.awt.Color( 152, 234, 187, 255 )
+			"border": new javax.swing.border.LineBorder( new java.awt.Color( 224, 224, 224, 255 ), 1, false )
+			"foreground": new java.awt.Color( 204, 204, 204, 255 )
+			"font": &Font0 new java.awt.Font( "微软雅黑", 0, 12 )
+			addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseEntered", "thisMouseEntered", true ) )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "del"
+				"text": "-"
+				"background": new java.awt.Color( 239, 190, 190, 255 )
+				"font": #Font0
+				addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "delMouseClicked", true ) )
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "add"
+				"text": "+"
+				"background": new java.awt.Color( 176, 232, 187, 255 )
+				"font": #Font0
+				addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "addStep", true ) )
+			} )
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
+				name: "panel1"
+				add( new FormComponent( "javax.swing.JComboBox" ) {
+					name: "operateType"
+					"background": new java.awt.Color( 255, 255, 255, 255 )
+					"font": #Font0
+					"border": sfield com.jformdesigner.model.FormObject NULL_VALUE
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 0
+					"y": 0
+					"height": 24
+					"width": 185
+				} )
+			} )
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
+				name: "downloadPane"
+				"font": #Font0
+				add( new FormComponent( "javax.swing.JComboBox" ) {
+					name: "fileNameFrom"
+					"background": new java.awt.Color( 255, 255, 255, 255 )
+					"font": #Font0
+					"border": sfield com.jformdesigner.model.FormObject NULL_VALUE
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 8
+					"y": 0
+					"height": 24
+					"width": 130
+				} )
+				add( new FormComponent( "javax.swing.JComboBox" ) {
+					name: "fileTypeFrom"
+					"background": new java.awt.Color( 255, 255, 255, 255 )
+					"font": #Font0
+					"border": sfield com.jformdesigner.model.FormObject NULL_VALUE
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"width": 145
+					"height": 24
+					"x": 275
+					"y": 0
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "fileType"
+					"font": #Font0
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 430
+					"y": 0
+					"width": 75
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "dir"
+					"font": #Font0
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 602
+					"y": 1
+					"width": 126
+					"height": 20
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "dirBtn"
+					"text": "选择目录"
+					"background": new java.awt.Color( 204, 204, 204, 255 )
+					"font": #Font0
+					"horizontalAlignment": 11
+					addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "dirBtnMouseClicked", true ) )
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 515
+					"y": 0
+					"width": 80
+					"height": 24
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "fileName"
+					"font": #Font0
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"width": 95
+					"height": 23
+					"x": 150
+					"y": 0
+				} )
+			} )
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
+				name: "regPane"
+				"font": #Font0
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "regLabel"
+					"text": "正则表达式"
+					"font": #Font0
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 10
+					"y": 5
+					"width": 60
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "regSelector"
+					"font": #Font0
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 80
+					"y": 0
+					"width": 165
+				} )
+				add( new FormComponent( "javax.swing.JComboBox" ) {
+					name: "regReplace"
+					"background": new java.awt.Color( 255, 255, 255, 255 )
+					"font": #Font0
+					"border": sfield com.jformdesigner.model.FormObject NULL_VALUE
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 275
+					"y": 0
+					"width": 145
+					"height": 24
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "label6"
+					"text": "->"
+					"font": #Font0
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 446
+					"y": 4
+					"width": 20
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "regSource"
+					"font": #Font0
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 529
+					"y": 0
+					"width": 200
+				} )
+			} )
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
+				name: "cssPane"
+				"font": #Font0
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "cssLabel"
+					"text": "css选择器"
+					"font": #Font0
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 10
+					"y": 5
+					"width": 60
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "cssSelector"
+					"font": #Font0
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 80
+					"y": 1
+					"width": 165
+				} )
+				add( new FormComponent( "javax.swing.JComboBox" ) {
+					name: "attrType"
+					"background": new java.awt.Color( 255, 255, 255, 255 )
+					"font": #Font0
+					"border": sfield com.jformdesigner.model.FormObject NULL_VALUE
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 275
+					"y": 0
+					"width": 145
+					"height": 24
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "attrName"
+					"font": #Font0
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 529
+					"y": 0
+					"width": 200
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "attrNameLabel"
+					"text": "标签属性名"
+					"font": #Font0
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 441
+					"y": 4
+				} )
+			} )
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
+				name: "pagePane"
+				"font": #Font0
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "pageLable"
+					"text": "生成页码(替换{page})，数字从"
+					"font": #Font0
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 10
+					"y": 1
+					"width": 200
+					"height": 22
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "label7"
+					"text": "->"
+					"font": #Font0
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 446
+					"y": 4
+					"width": 20
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "pageMax"
+					"font": #Font0
+					"text": "1"
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 529
+					"y": 0
+					"width": 200
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "pageMin"
+					"font": #Font0
+					"text": "1"
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"width": 180
+					"height": 24
+					"x": 240
+					"y": 0
+				} )
+			} )
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
+				name: "varPane"
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "label1"
+					"text": "变量名"
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 222
+					"y": 2
+					"width": 40
+					"height": 20
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "varName"
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 275
+					"y": 0
+					"width": 145
+					"height": 23
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "label8"
+					"text": "变量值"
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"width": 40
+					"height": 24
+					"x": 445
+					"y": 0
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "varValue"
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"width": 200
+					"x": 529
+					"y": 0
+					"height": 23
+				} )
+				add( new FormComponent( "javax.swing.JComboBox" ) {
+					name: "varOperate"
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 9
+					"y": 1
+					"width": 190
+				} )
+			} )
+			add( new FormComponent( "javax.swing.JProgressBar" ) {
+				name: "progress"
+				"stringPainted": true
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 0, 0 )
+			"size": new java.awt.Dimension( 825, 210 )
+		} )
+	}
+}

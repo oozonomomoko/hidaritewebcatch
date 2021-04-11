@@ -1,0 +1,169 @@
+JFDML JFormDesigner: "7.0.0.6.255" Java: "1.8.0_152-release" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
+			name: "this"
+			"background": new java.awt.Color( 255, 255, 255, 255 )
+			"title": "爬虫46.0"
+			addEvent( new FormEvent( "java.awt.event.ComponentListener", "componentResized", "thisComponentResized", true ) )
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
+				name: "topPanel"
+				"opaque": false
+				"background": new java.awt.Color( 255, 255, 255, 255 )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "label1"
+					"text": "初始地址"
+					"font": &Font0 new java.awt.Font( "Serif", 0, 12 )
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 390
+					"y": 10
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "source"
+					"font": #Font0
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 450
+					"y": 7
+					"width": 296
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "start"
+					"text": "开始"
+					"background": &SwingColor0 new com.jformdesigner.model.SwingColor( "Button.background" )
+					"font": #Font0
+					addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "startMouseClicked", true ) )
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 750
+					"y": 5
+					"width": 70
+					"height": 29
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "label2"
+					"text": "代理设置(ip:port)"
+					"font": #Font0
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 130
+					"y": 10
+					"width": 100
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "proxy"
+					"font": #Font0
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 240
+					"y": 7
+					"width": 140
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "addStep"
+					"text": "新增步骤"
+					addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "addStepMouseClicked", true ) )
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 20
+					"y": 5
+					"width": 86
+					"height": 28
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "stop"
+					"text": "停止"
+					addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "stopMouseClicked", true ) )
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 835
+					"y": 5
+					"width": 70
+					"height": 29
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "exportBtn"
+					"text": "导出"
+					"font": #Font0
+					"background": #SwingColor0
+					"toolTipText": "导出当前配置到控制台"
+					addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "exportMouseClicked", true ) )
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 1100
+					"y": 7
+				} )
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"x": 0
+				"y": 0
+				"width": 1170
+				"height": 40
+			} )
+			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+				name: "scrollPane1"
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.FlowLayout ) {
+					"alignment": 3
+				} ) {
+					name: "centerPane"
+					"background": new java.awt.Color( 255, 255, 255, 255 )
+					"preferredSize": new java.awt.Dimension( 890, 400 )
+					"autoscrolls": true
+				} )
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"x": 0
+				"y": 40
+				"width": 1175
+				"height": 450
+			} )
+			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+				name: "consolePane"
+				add( new FormComponent( "javax.swing.JTextArea" ) {
+					name: "textArea1"
+					"background": new java.awt.Color( 243, 243, 243, 255 )
+				} )
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"x": 1
+				"y": 515
+				"width": 1174
+				"height": 195
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "clearConsole"
+				"text": "清空控制台"
+				"font": #Font0
+				"background": #SwingColor0
+				addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "clearConsoleMouseClicked", true ) )
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"width": 94
+				"height": 23
+				"x": 1055
+				"y": 490
+			} )
+			add( new FormComponent( "javax.swing.JProgressBar" ) {
+				name: "downloadProgress"
+				"maximum": 0
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"x": 65
+				"y": 491
+				"width": 965
+				"height": 23
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label4"
+				"text": "下载进度"
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"x": 10
+				"y": 495
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "importBtn"
+				"text": "导入"
+				"font": #Font0
+				"background": #SwingColor0
+				"toolTipText": "请将配置信息粘贴到控制台"
+				addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "importConfig", true ) )
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"x": 1025
+				"y": 7
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 0, 0 )
+			"size": new java.awt.Dimension( 1190, 745 )
+		} )
+	}
+}

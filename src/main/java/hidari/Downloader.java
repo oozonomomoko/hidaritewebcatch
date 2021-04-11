@@ -21,13 +21,13 @@ import java.util.concurrent.Future;
  */
 public final class Downloader {
 
-    private static int thCount = 20;
+    private static ExecutorService thread;
 
-    private static ExecutorService thread = Executors.newFixedThreadPool(thCount);
-
-    public static void init(){
-        if (null == thread || thread.isTerminated())
-            thread = Executors.newFixedThreadPool(thCount);
+    public static void init(int downloadThCount){
+        if (null == thread || thread.isTerminated()) {
+            Log.info("初始化下载线程：" + downloadThCount);
+            thread = Executors.newFixedThreadPool(downloadThCount);
+        }
     }
     public static Future<?> download(String url, String filePath) {
         return thread.submit(()->{

@@ -129,7 +129,7 @@ public class MainFrame extends JFrame {
                 return;
             }
             try {
-                CatchStarter.start(steps, source.getText());
+                CatchStarter.start(steps, source.getText(), Integer.valueOf(thCount.getText()));
             }catch (Exception e1) {
                 e1.printStackTrace();
             }
@@ -179,7 +179,6 @@ public class MainFrame extends JFrame {
 
 
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-        // Generated using JFormDesigner Evaluation license - oozonomomoko
         topPanel = new JPanel();
         label1 = new JLabel();
         source = new JTextField();
@@ -189,6 +188,8 @@ public class MainFrame extends JFrame {
         addStep = new JButton();
         stop = new JButton();
         exportBtn = new JButton();
+        thCount = new JTextField();
+        label3 = new JLabel();
         scrollPane1 = new JScrollPane();
         centerPane = new JPanel();
         consolePane = new JScrollPane();
@@ -218,19 +219,19 @@ public class MainFrame extends JFrame {
 
             //---- label1 ----
             label1.setText("\u521d\u59cb\u5730\u5740");
-            label1.setFont(new Font(Font.SERIF, Font.PLAIN, 12));
+            label1.setFont(new Font("Serif", Font.PLAIN, 12));
             topPanel.add(label1);
             label1.setBounds(new Rectangle(new Point(390, 10), label1.getPreferredSize()));
 
             //---- source ----
-            source.setFont(new Font(Font.SERIF, Font.PLAIN, 12));
+            source.setFont(new Font("Serif", Font.PLAIN, 12));
             topPanel.add(source);
             source.setBounds(450, 7, 296, source.getPreferredSize().height);
 
             //---- start ----
             start.setText("\u5f00\u59cb");
             start.setBackground(UIManager.getColor("Button.background"));
-            start.setFont(new Font(Font.SERIF, Font.PLAIN, 12));
+            start.setFont(new Font("Serif", Font.PLAIN, 12));
             start.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
@@ -242,12 +243,12 @@ public class MainFrame extends JFrame {
 
             //---- label2 ----
             label2.setText("\u4ee3\u7406\u8bbe\u7f6e(ip:port)");
-            label2.setFont(new Font(Font.SERIF, Font.PLAIN, 12));
+            label2.setFont(new Font("Serif", Font.PLAIN, 12));
             topPanel.add(label2);
             label2.setBounds(130, 10, 100, label2.getPreferredSize().height);
 
             //---- proxy ----
-            proxy.setFont(new Font(Font.SERIF, Font.PLAIN, 12));
+            proxy.setFont(new Font("Serif", Font.PLAIN, 12));
             topPanel.add(proxy);
             proxy.setBounds(240, 7, 140, proxy.getPreferredSize().height);
 
@@ -275,7 +276,7 @@ public class MainFrame extends JFrame {
 
             //---- exportBtn ----
             exportBtn.setText("\u5bfc\u51fa");
-            exportBtn.setFont(new Font(Font.SERIF, Font.PLAIN, 12));
+            exportBtn.setFont(new Font("Serif", Font.PLAIN, 12));
             exportBtn.setBackground(UIManager.getColor("Button.background"));
             exportBtn.setToolTipText("\u5bfc\u51fa\u5f53\u524d\u914d\u7f6e\u5230\u63a7\u5236\u53f0");
             exportBtn.addMouseListener(new MouseAdapter() {
@@ -287,8 +288,17 @@ public class MainFrame extends JFrame {
             topPanel.add(exportBtn);
             exportBtn.setBounds(new Rectangle(new Point(1100, 7), exportBtn.getPreferredSize()));
 
-            {
-                // compute preferred size
+            //---- thCount ----
+            thCount.setText("20");
+            topPanel.add(thCount);
+            thCount.setBounds(960, 10, 40, thCount.getPreferredSize().height);
+
+            //---- label3 ----
+            label3.setText("\u5e76\u53d1");
+            topPanel.add(label3);
+            label3.setBounds(new Rectangle(new Point(930, 15), label3.getPreferredSize()));
+
+            { // compute preferred size
                 Dimension preferredSize = new Dimension();
                 for(int i = 0; i < topPanel.getComponentCount(); i++) {
                     Rectangle bounds = topPanel.getComponent(i).getBounds();
@@ -332,7 +342,7 @@ public class MainFrame extends JFrame {
 
         //---- clearConsole ----
         clearConsole.setText("\u6e05\u7a7a\u63a7\u5236\u53f0");
-        clearConsole.setFont(new Font(Font.SERIF, Font.PLAIN, 12));
+        clearConsole.setFont(new Font("Serif", Font.PLAIN, 12));
         clearConsole.setBackground(UIManager.getColor("Button.background"));
         clearConsole.addMouseListener(new MouseAdapter() {
             @Override
@@ -355,7 +365,7 @@ public class MainFrame extends JFrame {
 
         //---- importBtn ----
         importBtn.setText("\u5bfc\u5165");
-        importBtn.setFont(new Font(Font.SERIF, Font.PLAIN, 12));
+        importBtn.setFont(new Font("Serif", Font.PLAIN, 12));
         importBtn.setBackground(UIManager.getColor("Button.background"));
         importBtn.setToolTipText("\u8bf7\u5c06\u914d\u7f6e\u4fe1\u606f\u7c98\u8d34\u5230\u63a7\u5236\u53f0");
         importBtn.addMouseListener(new MouseAdapter() {
@@ -367,8 +377,7 @@ public class MainFrame extends JFrame {
         contentPane.add(importBtn);
         importBtn.setBounds(new Rectangle(new Point(1025, 7), importBtn.getPreferredSize()));
 
-        {
-            // compute preferred size
+        { // compute preferred size
             Dimension preferredSize = new Dimension();
             for(int i = 0; i < contentPane.getComponentCount(); i++) {
                 Rectangle bounds = contentPane.getComponent(i).getBounds();
@@ -394,7 +403,6 @@ public class MainFrame extends JFrame {
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - oozonomomoko
     private JPanel topPanel;
     private JLabel label1;
     private JTextField source;
@@ -404,6 +412,8 @@ public class MainFrame extends JFrame {
     private JButton addStep;
     private JButton stop;
     private JButton exportBtn;
+    private JTextField thCount;
+    private JLabel label3;
     private JScrollPane scrollPane1;
     private JPanel centerPane;
     private JScrollPane consolePane;

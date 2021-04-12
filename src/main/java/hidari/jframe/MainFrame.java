@@ -201,7 +201,7 @@ public class MainFrame extends JFrame {
 
         //======== this ========
         setBackground(Color.white);
-        setTitle("\u722c\u866b46.0");
+        setTitle("NogiCatch");
         addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {

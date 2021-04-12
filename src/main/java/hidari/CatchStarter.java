@@ -88,11 +88,11 @@ public class CatchStarter {
 
     // 爬虫进度
     private static void addProgress(JProgressBar progress) {
-        try {
-            Thread.sleep(1);
-        } catch (InterruptedException e) {
-            Log.error(e);
-        }
+//        try {
+//            Thread.sleep(1);
+//        } catch (InterruptedException e) {
+//            Log.error(e);
+//        }
         progress.setValue(progress.getValue() + 1);
     }
 
@@ -111,13 +111,12 @@ public class CatchStarter {
         start(catchStep, sources, index, variables, downloadResults);
     }
 
-    private static void start(CatchStep catchStep, List<String> source, int index, Map<String, String> variablesSrc, List<Future> downloadResults) {
+    private static void start(CatchStep catchStep, List<String> source, int index, Map<String, String> variables, List<Future> downloadResults) {
         if (null == catchStep) {
             return;
         }
         JProgressBar progress = catchStep.getProgress();
         String logpre = String.join("", Collections.nCopies(index, "  ")) + index++;
-        Map<String, String> variables = new HashMap<>(variablesSrc);
         if (source.isEmpty()) {
             Log.info(logpre + "没有可处理的地址");
             progress.setMaximum(1);
@@ -263,6 +262,14 @@ public class CatchStarter {
                     String value = replaceVar(catchStep.getVarValue(), variables);
                     variables.put(catchStep.getVarName(), value);
                     Log.info(logpre + Operate.OPERATE_VAR.getOperateName() + "新增变量成功," + catchStep.getVarName() + ":" + value);
+                }
+                start(catchStep.getNext(), source, index, variables, downloadResults);
+                progress.setValue(source.size());
+                break;
+            case 6:
+                if (Operate.VAR_ADD.getOperateType() == catchStep.getVarOperate()) {
+                    Downloader.headers.put(catchStep.getVarName(), catchStep.getVarValue());
+                    Log.info(logpre + Operate.OPERATE_VAR.getOperateName() + "新增header成功," + catchStep.getVarName());
                 }
                 start(catchStep.getNext(), source, index, variables, downloadResults);
                 progress.setValue(source.size());

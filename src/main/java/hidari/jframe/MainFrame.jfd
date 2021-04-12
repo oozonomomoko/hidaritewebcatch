@@ -6,7 +6,7 @@ new FormModel {
 		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
 			name: "this"
 			"background": new java.awt.Color( 255, 255, 255, 255 )
-			"title": "爬虫46.0"
+			"title": "NogiCatch"
 			addEvent( new FormEvent( "java.awt.event.ComponentListener", "componentResized", "thisComponentResized", true ) )
 			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
 				name: "topPanel"
@@ -182,3 +182,4 @@ new FormModel {
 		} )
 	}
 }
+

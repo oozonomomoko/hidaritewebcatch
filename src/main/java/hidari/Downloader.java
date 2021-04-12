@@ -11,6 +11,8 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
@@ -20,6 +22,7 @@ import java.util.concurrent.Future;
  * @since 2019/10/11 15:39
  */
 public final class Downloader {
+    public static Map<String, String> headers = new HashMap<>();
 
     private static ExecutorService thread;
 
@@ -30,11 +33,11 @@ public final class Downloader {
         }
     }
     public static Future<?> download(String url, String filePath) {
+        String format = url.replace("\\", "");
         return thread.submit(()->{
             try {
-                Thread.sleep(1);
-                Log.info(Operate.OPERATE_DOWNLOAD.getOperateName() + url + "--->" + filePath);
-                Connection.Response rsp = getConnection(url).execute();
+                Log.info(Operate.OPERATE_DOWNLOAD.getOperateName() + format + "--->" + filePath);
+                Connection.Response rsp = getConnection(format).execute();
                 try (BufferedInputStream bis = rsp.bodyStream()){
                     File f = new File(filePath);
                     if (!f.getParentFile().exists())
@@ -54,7 +57,11 @@ public final class Downloader {
 
     public static Document getDoc(String url) {
         try {
-            return getConnection(url).get();
+            Connection.Response rsp = getConnection(url).execute();
+            if (rsp.statusCode() == 302) {
+                return getDoc(rsp.header("location"));
+            }
+            return rsp.parse();
         } catch (IOException e) {
             Log.error(e);
         }
@@ -63,9 +70,9 @@ public final class Downloader {
 
     private static Connection getConnection(String url) {
         if (null == CatchConfig.proxy) {
-            return Jsoup.connect(url).ignoreContentType(true).maxBodySize(10485760);
+            return Jsoup.connect(url).ignoreContentType(true).headers(headers).maxBodySize(10485760);
         } else {
-            return Jsoup.connect(url).ignoreContentType(true).maxBodySize(10485760).proxy(CatchConfig.proxy);
+            return Jsoup.connect(url).ignoreContentType(true).headers(headers).maxBodySize(10485760).proxy(CatchConfig.proxy);
         }
     }
 
@@ -81,6 +88,7 @@ public final class Downloader {
                 e.printStackTrace();
             }
         }
+        headers.clear();
         Log.info("下载已停止");
     }
 }

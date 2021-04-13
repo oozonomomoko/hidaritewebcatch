@@ -116,14 +116,14 @@ new FormModel {
 				} ) {
 					name: "centerPane"
 					"background": new java.awt.Color( 255, 255, 255, 255 )
-					"preferredSize": new java.awt.Dimension( 890, 400 )
+					"preferredSize": new java.awt.Dimension( 890, 1400 )
 					"autoscrolls": true
 				} )
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-				"x": 0
-				"y": 40
-				"width": 1175
-				"height": 450
+				"x": 5
+				"y": 35
+				"width": 1176
+				"height": 453
 			} )
 			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
 				name: "consolePane"
@@ -132,7 +132,7 @@ new FormModel {
 					"background": new java.awt.Color( 243, 243, 243, 255 )
 				} )
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-				"x": 1
+				"x": 5
 				"y": 515
 				"width": 1174
 				"height": 195
@@ -182,4 +182,3 @@ new FormModel {
 		} )
 	}
 }
-

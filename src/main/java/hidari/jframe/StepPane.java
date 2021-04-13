@@ -46,7 +46,6 @@ public class StepPane extends JPanel {
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-        // Generated using JFormDesigner Evaluation license - oozonomomoko
         del = new JButton();
         add = new JButton();
         panel1 = new JPanel();
@@ -131,8 +130,7 @@ public class StepPane extends JPanel {
             panel1.add(operateType);
             operateType.setBounds(0, 0, 185, 24);
 
-            {
-                // compute preferred size
+            { // compute preferred size
                 Dimension preferredSize = new Dimension();
                 for(int i = 0; i < panel1.getComponentCount(); i++) {
                     Rectangle bounds = panel1.getComponent(i).getBounds();
@@ -175,7 +173,7 @@ public class StepPane extends JPanel {
             //---- dir ----
             dir.setFont(new Font("\u5fae\u8f6f\u96c5\u9ed1", Font.PLAIN, 12));
             downloadPane.add(dir);
-            dir.setBounds(602, 1, 126, 20);
+            dir.setBounds(600, 2, 126, 20);
 
             //---- dirBtn ----
             dirBtn.setText("\u9009\u62e9\u76ee\u5f55");
@@ -196,8 +194,7 @@ public class StepPane extends JPanel {
             downloadPane.add(fileName);
             fileName.setBounds(150, 0, 95, 23);
 
-            {
-                // compute preferred size
+            { // compute preferred size
                 Dimension preferredSize = new Dimension();
                 for(int i = 0; i < downloadPane.getComponentCount(); i++) {
                     Rectangle bounds = downloadPane.getComponent(i).getBounds();
@@ -247,8 +244,7 @@ public class StepPane extends JPanel {
             regPane.add(regSource);
             regSource.setBounds(529, 0, 200, regSource.getPreferredSize().height);
 
-            {
-                // compute preferred size
+            { // compute preferred size
                 Dimension preferredSize = new Dimension();
                 for(int i = 0; i < regPane.getComponentCount(); i++) {
                     Rectangle bounds = regPane.getComponent(i).getBounds();
@@ -298,8 +294,7 @@ public class StepPane extends JPanel {
             cssPane.add(attrNameLabel);
             attrNameLabel.setBounds(new Rectangle(new Point(441, 4), attrNameLabel.getPreferredSize()));
 
-            {
-                // compute preferred size
+            { // compute preferred size
                 Dimension preferredSize = new Dimension();
                 for(int i = 0; i < cssPane.getComponentCount(); i++) {
                     Rectangle bounds = cssPane.getComponent(i).getBounds();
@@ -344,8 +339,7 @@ public class StepPane extends JPanel {
             pagePane.add(pageMin);
             pageMin.setBounds(240, 0, 180, 24);
 
-            {
-                // compute preferred size
+            { // compute preferred size
                 Dimension preferredSize = new Dimension();
                 for(int i = 0; i < pagePane.getComponentCount(); i++) {
                     Rectangle bounds = pagePane.getComponent(i).getBounds();
@@ -373,7 +367,7 @@ public class StepPane extends JPanel {
             varName.setBounds(275, 0, 145, 23);
 
             //---- label8 ----
-            label8.setText("变量值");
+            label8.setText("\u53d8\u91cf\u503c");
             varPane.add(label8);
             label8.setBounds(445, 0, 40, 24);
             varPane.add(varValue);
@@ -381,8 +375,7 @@ public class StepPane extends JPanel {
             varPane.add(varOperate);
             varOperate.setBounds(9, 1, 190, varOperate.getPreferredSize().height);
 
-            {
-                // compute preferred size
+            { // compute preferred size
                 Dimension preferredSize = new Dimension();
                 for(int i = 0; i < varPane.getComponentCount(); i++) {
                     Rectangle bounds = varPane.getComponent(i).getBounds();
@@ -590,7 +583,6 @@ public class StepPane extends JPanel {
 
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - oozonomomoko
     private JButton del;
     private JButton add;
     private JPanel panel1;

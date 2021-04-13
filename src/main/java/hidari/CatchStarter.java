@@ -19,6 +19,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * @since 2019/10/11 11:11
  */
 public class CatchStarter {
+    public static final String SPLIT = ",";
 
     /**
      * 下载进度条
@@ -116,7 +117,7 @@ public class CatchStarter {
             return;
         }
         JProgressBar progress = catchStep.getProgress();
-        String logpre = String.join("", Collections.nCopies(index, "  ")) + index++;
+        String logpre = String.join("", Collections.nCopies(index++, "  ")) + index;
         if (source.isEmpty()) {
             Log.info(logpre + "没有可处理的地址");
             progress.setMaximum(1);
@@ -148,14 +149,22 @@ public class CatchStarter {
                     Document content = Downloader.getDoc(url);
                     if (null != content) {
                         if (Operate.REG_VAR_ADD.getOperateType() == catchStep.getRegReplace()) {
-                            List<String> temp = RegUtil.find(content.toString(), catchStep.getRegSelector(), true, "%s");
-                            if (temp.size() == 0)
-                                Log.error(logpre + Operate.OPERATE_REGRESULT.getOperateName() + "设置变量失败,正则未匹配到字符串");
-                            else {
-                                variables.put(catchStep.getRegSource(), temp.get(0));
-                                Log.info(logpre + Operate.OPERATE_REGRESULT.getOperateName() + "设置变量成功," + catchStep.getRegSource() + ":" + temp.get(0));
-                                start(catchStep.getNext(), url, index, variables, downloadResults);
+                            String[] vars = catchStep.getRegSource().split(SPLIT);
+                            String[] regs = catchStep.getRegSelector().split(SPLIT);
+                            if (regs.length != vars.length) {
+                                Log.error(logpre + Operate.OPERATE_REG.getOperateName() + "设置变量失败,正则表达式格式和变量个数不相等");
+                                return;
                             }
+                            for (int i = 0; i<vars.length;i++) {
+                                List<String> temp = RegUtil.find(content.toString(), regs[i]);
+                                if (temp.size() == 0) {
+                                    Log.error(logpre + Operate.OPERATE_REG.getOperateName() + "设置变量失败,正则未匹配到字符串");
+                                    return;
+                                }
+                                variables.put(vars[i], temp.get(0));
+                                Log.info(logpre + Operate.OPERATE_REG.getOperateName() + "设置变量成功," + vars[i] + ":" + temp.get(0));
+                            }
+                            start(catchStep.getNext(), url, index, variables, downloadResults);
                         } else {
                             List<String> temp = RegUtil.find(content.toString(), catchStep.getRegSelector(),
                                     catchStep.getRegReplace() == Operate.REG_REPLACE.getOperateType(), catchStep.getRegSource());
@@ -199,14 +208,22 @@ public class CatchStarter {
             case 3:
                 for (String url : source) {
                     if (Operate.REG_VAR_ADD.getOperateType() == catchStep.getRegReplace()) {
-                        List<String> temp = RegUtil.find(url, catchStep.getRegSelector(), true, "%s");
-                        if (temp.size() == 0)
-                            Log.error(logpre + Operate.OPERATE_REG.getOperateName() + "设置变量失败,正则未匹配到字符串");
-                        else {
-                            variables.put(catchStep.getRegSource(), temp.get(0));
-                            Log.info(logpre + Operate.OPERATE_REG.getOperateName() + "设置变量成功," + catchStep.getRegSource() + ":" + temp.get(0));
-                            start(catchStep.getNext(), url, index, variables, downloadResults);
+                        String[] vars = catchStep.getRegSource().split(SPLIT);
+                        String[] regs = catchStep.getRegSelector().split(SPLIT);
+                        if (regs.length != vars.length) {
+                            Log.error(logpre + Operate.OPERATE_REG.getOperateName() + "设置变量失败,正则表达式格式和变量个数不相等");
+                            return;
                         }
+                        for (int i = 0; i<vars.length;i++) {
+                            List<String> temp = RegUtil.find(url, regs[i]);
+                            if (temp.size() == 0) {
+                                Log.error(logpre + Operate.OPERATE_REG.getOperateName() + "设置变量失败,正则未匹配到字符串");
+                                return;
+                            }
+                            variables.put(vars[i], temp.get(0));
+                            Log.info(logpre + Operate.OPERATE_REG.getOperateName() + "设置变量成功," + vars[i] + ":" + temp.get(0));
+                        }
+                        start(catchStep.getNext(), url, index, variables, downloadResults);
                     } else {
                         List<String> temp = RegUtil.find(url, catchStep.getRegSelector(), catchStep.getRegReplace() == 1, replaceVar(catchStep.getRegSource(), variables));
 //                        Log.info(logpre + Operate.OPERATE_REG.getOperateName() + url + "-->" + temp);
@@ -308,7 +325,7 @@ public class CatchStarter {
         String logpre = String.join("", Collections.nCopies(index, "  ")) + index++;
         if (next.getOperateType() == Operate.OPERATE_REGRESULT.getOperateType()
                 && next.getRegReplace() == Operate.REG_VAR_ADD.getOperateType()) {
-            List<String> temp = RegUtil.find(content, next.getRegSelector(), true, "%s");
+            List<String> temp = RegUtil.find(content, next.getRegSelector());
             next.getProgress().setMaximum(1);
             next.getProgress().setValue(1);
             if (temp.size() == 0) {

@@ -27,6 +27,9 @@ public class RegUtil {
         return illegal.matcher(src).replaceAll("");
     }
 
+    public static List<String> find(String content, String reg) {
+        return find(content, reg, false, null);
+    }
     /**
      * 正则匹配查找字符串
      * @param content 原文
@@ -46,18 +49,14 @@ public class RegUtil {
 
         List<String> result = new ArrayList<>();
         while (m.find()) {
-            if (replace) {
-                List<String> groupList = new ArrayList<>();
-                if (0 == m.groupCount()) {
-                    result.add(String.format(forReplace, m.group()));
-                } else if (0 < m.groupCount()) {
-                    for (int i = 1; i <= m.groupCount(); i++) {
-                        groupList.add(m.group(i));
-                    }
-                    result.add(String.format(forReplace, groupList.toArray()));
+            List<String> groupList = new ArrayList<>();
+            if (0 == m.groupCount()) {
+                result.add(replace?String.format(forReplace, m.group()):m.group());
+            } else if (0 < m.groupCount()) {
+                for (int i = 1; i <= m.groupCount(); i++) {
+                    groupList.add(m.group(i));
                 }
-            } else {
-                result.add(m.group());
+                result.add(replace?String.format(forReplace, groupList.toArray()):groupList.get(0));
             }
         }
         return result;

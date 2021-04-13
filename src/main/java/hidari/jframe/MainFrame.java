@@ -87,7 +87,7 @@ public class MainFrame extends JFrame {
         config.setSteps(steps);
         config.setProxy(proxy.getText());
         config.setSource(source.getText());
-        textArea1.setText(JSON.toJSONString(config, true));
+        textArea1.setText(JSON.toJSONString(config));
     }
 
     /**
@@ -321,14 +321,14 @@ public class MainFrame extends JFrame {
             //======== centerPane ========
             {
                 centerPane.setBackground(Color.white);
-                centerPane.setPreferredSize(new Dimension(890, 400));
+                centerPane.setPreferredSize(new Dimension(890, 1400));
                 centerPane.setAutoscrolls(true);
                 centerPane.setLayout(new FlowLayout(FlowLayout.LEADING));
             }
             scrollPane1.setViewportView(centerPane);
         }
         contentPane.add(scrollPane1);
-        scrollPane1.setBounds(0, 40, 1175, 450);
+        scrollPane1.setBounds(5, 35, 1176, 453);
 
         //======== consolePane ========
         {
@@ -338,7 +338,7 @@ public class MainFrame extends JFrame {
             consolePane.setViewportView(textArea1);
         }
         contentPane.add(consolePane);
-        consolePane.setBounds(1, 515, 1174, 195);
+        consolePane.setBounds(5, 515, 1174, 195);
 
         //---- clearConsole ----
         clearConsole.setText("\u6e05\u7a7a\u63a7\u5236\u53f0");

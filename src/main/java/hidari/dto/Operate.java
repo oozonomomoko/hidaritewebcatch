@@ -12,6 +12,7 @@ public enum Operate {
     OPERATE_PAGE(4, "[生成页码]"),
     OPERATE_VAR(5, "[变量操作]"),
     OPERATE_HEADER(6, "[Header]"),
+    OPERATE_INIT(7, "[重置地址]"),
 
     DOWNLOAD_FILENAME_URL(0, "[从url获取文件名]"),
     DOWNLOAD_FILENAME_RANDOM(1, "[随机文件名]"),

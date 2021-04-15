@@ -155,10 +155,10 @@ public class CatchStarter {
                                 Log.error(logpre + Operate.OPERATE_REG.getOperateName() + "设置变量失败,正则表达式格式和变量个数不相等");
                                 return;
                             }
-                            for (int i = 0; i<vars.length;i++) {
+                            for (int i = 0; i < vars.length; i++) {
                                 List<String> temp = RegUtil.find(content.toString(), regs[i]);
                                 if (temp.size() == 0) {
-                                    Log.error(logpre + Operate.OPERATE_REG.getOperateName() + "设置变量失败,正则未匹配到字符串");
+                                    Log.error(logpre + Operate.OPERATE_REG.getOperateName() + "设置变量失败,正则未匹配到字符串：" + content.toString());
                                     return;
                                 }
                                 variables.put(vars[i], temp.get(0));
@@ -214,10 +214,10 @@ public class CatchStarter {
                             Log.error(logpre + Operate.OPERATE_REG.getOperateName() + "设置变量失败,正则表达式格式和变量个数不相等");
                             return;
                         }
-                        for (int i = 0; i<vars.length;i++) {
+                        for (int i = 0; i < vars.length; i++) {
                             List<String> temp = RegUtil.find(url, regs[i]);
                             if (temp.size() == 0) {
-                                Log.error(logpre + Operate.OPERATE_REG.getOperateName() + "设置变量失败,正则未匹配到字符串");
+                                Log.error(logpre + Operate.OPERATE_REG.getOperateName() + "设置变量失败,正则未匹配到字符串：" + url);
                                 return;
                             }
                             variables.put(vars[i], temp.get(0));
@@ -290,6 +290,12 @@ public class CatchStarter {
                 }
                 start(catchStep.getNext(), source, index, variables, downloadResults);
                 progress.setValue(source.size());
+                break;
+            case 7:
+                for (int i = 0; i < source.size(); i++) {
+                    start(catchStep.getNext(), replaceVar(catchStep.getVarValue(),variables), index, variables, downloadResults);
+                    addProgress(progress);
+                }
                 break;
         }
     }

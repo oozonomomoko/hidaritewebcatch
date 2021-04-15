@@ -36,10 +36,14 @@ public final class Downloader {
         String format = url.replace("\\", "");
         return thread.submit(()->{
             try {
+                File f = new File(filePath);
+                if (f.exists()) {
+                    Log.info(Operate.OPERATE_DOWNLOAD.getOperateName() + format + "--exist->" + filePath);
+                    return;
+                }
                 Log.info(Operate.OPERATE_DOWNLOAD.getOperateName() + format + "--->" + filePath);
                 Connection.Response rsp = getConnection(format).execute();
                 try (BufferedInputStream bis = rsp.bodyStream()){
-                    File f = new File(filePath);
                     if (!f.getParentFile().exists())
                         f.getParentFile().mkdirs();
                     // 替换已存在的文件

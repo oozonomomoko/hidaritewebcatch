@@ -423,6 +423,7 @@ public class StepPane extends JPanel {
         operateType.addItem(Operate.OPERATE_PAGE);
         operateType.addItem(Operate.OPERATE_VAR);
         operateType.addItem(Operate.OPERATE_HEADER);
+        operateType.addItem(Operate.OPERATE_INIT);
         operateType.addItemListener(e -> {
             int opType = ((Operate)e.getItem()).getOperateType();
             switch (opType){
@@ -445,6 +446,7 @@ public class StepPane extends JPanel {
                     break;
                 case 5:
                 case 6:
+                case 7:
                     showObj(true, varPane);
                     showObj(false, downloadPane, regPane, cssPane, pagePane);
                     break;

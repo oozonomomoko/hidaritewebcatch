@@ -1,4 +1,4 @@
-package hidari.dto;
+package hidari.util;
 
 public class Pair<L, R> {
     private L left;

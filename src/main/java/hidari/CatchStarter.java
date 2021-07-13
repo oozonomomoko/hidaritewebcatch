@@ -1,8 +1,12 @@
 package hidari;
 
+import com.alibaba.fastjson.JSONObject;
 import hidari.dto.CatchStep;
 import hidari.dto.Operate;
-import hidari.dto.Pair;
+import hidari.util.Log;
+import hidari.util.Pair;
+import hidari.util.RegUtil;
+import hidari.util.VarUtil;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -48,6 +52,19 @@ public class CatchStarter {
         Downloader.init(downloadThCount);
     }
 
+
+    private static void waitingDownload(List<Future> downloadResults) {
+        try {
+            for (Future future : downloadResults) {
+                while (!future.isDone()) {
+                    Thread.sleep(200);
+                }
+            }
+        } catch (InterruptedException e) {
+            Log.error(e);
+        }
+    }
+
     /**
      * 爬虫开始
      *
@@ -69,15 +86,7 @@ public class CatchStarter {
                 start(steps, sources, 0, new HashMap<>(), downloadResults);
 
                 // 等待下载任务完成
-                try {
-                    for (Future future : downloadResults) {
-                        while (!future.isDone()) {
-                            Thread.sleep(200);
-                        }
-                    }
-                } catch (InterruptedException e) {
-                    Log.error(e);
-                }
+                waitingDownload(downloadResults);
                 isWorking.set(false);
                 Log.info("下载任务完成，任务数:" + downloadResults.size());
                 Log.info("=============完成=============");
@@ -88,7 +97,7 @@ public class CatchStarter {
     }
 
     // 爬虫进度
-    private static void addProgress(JProgressBar progress) {
+    public static void addProgress(JProgressBar progress) {
 //        try {
 //            Thread.sleep(1);
 //        } catch (InterruptedException e) {
@@ -98,7 +107,7 @@ public class CatchStarter {
     }
 
     // 下载进度
-    private static void addDownloadProgressMax(int max) {
+    public static void addDownloadProgressMax(int max) {
         downloadProgress.setMaximum(downloadProgress.getMaximum() + max);
     }
 
@@ -138,7 +147,7 @@ public class CatchStarter {
             case 0:
                 addDownloadProgressMax(source.size());
                 for (String url : source) {
-                    String filePath = replaceFileVar(catchStep.getDownloadDir(), variables) + "\\" + getNameFromUrl(url, catchStep, variables);
+                    String filePath = VarUtil.replaceFileVar(catchStep.getDownloadDir(), variables) + "\\" + VarUtil.getNameFromUrl(url, catchStep, variables);
                     downloadResults.add(Downloader.download(url, filePath));
                     addProgress(progress);
                 }
@@ -225,7 +234,7 @@ public class CatchStarter {
                         }
                         start(catchStep.getNext(), url, index, variables, downloadResults);
                     } else {
-                        List<String> temp = RegUtil.find(url, catchStep.getRegSelector(), catchStep.getRegReplace() == 1, replaceVar(catchStep.getRegSource(), variables));
+                        List<String> temp = RegUtil.find(url, catchStep.getRegSelector(), catchStep.getRegReplace() == 1, VarUtil.replaceVar(catchStep.getRegSource(), variables));
 //                        Log.info(logpre + Operate.OPERATE_REG.getOperateName() + url + "-->" + temp);
                         start(catchStep.getNext(), temp, index, variables, downloadResults);
                     }
@@ -238,7 +247,7 @@ public class CatchStarter {
                 int fixedLen = 0;
                 String fixedChar = null;
                 try {
-                    String minStr = replaceVar(catchStep.getPageMin(), variables);
+                    String minStr = VarUtil.replaceVar(catchStep.getPageMin(), variables);
                     if (minStr.contains("|")) {
                         String[] split = minStr.split("\\|");
                         if (split.length != 3) {
@@ -250,7 +259,7 @@ public class CatchStarter {
                         minStr = split[2];
                     }
                     Pair<Boolean, Integer> minPair = parsePage(minStr);
-                    Pair<Boolean, Integer> maxPair = parsePage(replaceVar(catchStep.getPageMax(), variables));
+                    Pair<Boolean, Integer> maxPair = parsePage(VarUtil.replaceVar(catchStep.getPageMax(), variables));
                     min = minPair.getRight();
                     max = maxPair.getRight();
                     Log.info(logpre + Operate.OPERATE_PAGE.getOperateName() + "页码:" + catchStep.getPageMin() + "~" + catchStep.getPageMax());
@@ -276,7 +285,7 @@ public class CatchStarter {
                 break;
             case 5:
                 if (Operate.VAR_ADD.getOperateType() == catchStep.getVarOperate()) {
-                    String value = replaceVar(catchStep.getVarValue(), variables);
+                    String value = VarUtil.replaceVar(catchStep.getVarValue(), variables);
                     variables.put(catchStep.getVarName(), value);
                     Log.info(logpre + Operate.OPERATE_VAR.getOperateName() + "新增变量成功," + catchStep.getVarName() + ":" + value);
                 }
@@ -293,7 +302,7 @@ public class CatchStarter {
                 break;
             case 7:
                 for (int i = 0; i < source.size(); i++) {
-                    start(catchStep.getNext(), replaceVar(catchStep.getVarValue(),variables), index, variables, downloadResults);
+                    start(catchStep.getNext(), VarUtil.replaceVar(catchStep.getVarValue(),variables), index, variables, downloadResults);
                     addProgress(progress);
                 }
                 break;
@@ -325,7 +334,7 @@ public class CatchStarter {
     }
 
 
-    private static CatchStep stepSetVariables(CatchStep next, Map<String, String> variables, String content, int index) {
+    public static CatchStep stepSetVariables(CatchStep next, Map<String, String> variables, String content, int index) {
         if (null == next)
             return null;
         String logpre = String.join("", Collections.nCopies(index, "  ")) + index++;
@@ -344,7 +353,7 @@ public class CatchStarter {
             return null;
         } else if (next.getOperateType() == Operate.OPERATE_VAR.getOperateType()
                 && next.getVarOperate() == Operate.VAR_ADD.getOperateType()) {
-            String value = replaceVar(next.getVarValue(), variables);
+            String value = VarUtil.replaceVar(next.getVarValue(), variables);
             variables.put(next.getVarName(), value);
             Log.info(logpre + Operate.OPERATE_VAR.getOperateName() + "新增变量成功," + next.getVarName() + ":" + value);
             next.getProgress().setMaximum(1);
@@ -354,85 +363,6 @@ public class CatchStarter {
         return next;
     }
 
-    private static String replaceVar(String src, Map<String, String> variables, boolean file) {
-        Set<Map.Entry<String, String>> entrys = variables.entrySet();
-        for (Map.Entry<String, String> entry : entrys) {
-            src = src.replace("{" + entry.getKey() + "}", file ? RegUtil.getLegalName(entry.getValue()) : entry.getValue());
-        }
-        return src;
-    }
-
-    private static String replaceVar(String src, Map<String, String> variables) {
-        return replaceVar(src, variables, false);
-    }
-
-    private static String replaceFileVar(String src, Map<String, String> variables) {
-        return replaceVar(src, variables, true);
-    }
-
-
-    /**
-     * 从url获取文件名，包含后缀
-     *
-     * @param url
-     * @param catchStep
-     * @param variables
-     * @return
-     */
-    private static String getNameFromUrl(String url, CatchStep catchStep, Map<String, String> variables) {
-        /*
-         * 文件名获取方式,
-         * 0:从url中获取，重名时加上随机字符命名
-         * 1:随机生成文件名，
-         * 2:自定义，
-         */
-        int fileNameFrom = catchStep.getFileNameFrom();
-        /*
-         * 文件后缀获取方式
-         * 0：从url中获取
-         * 1：自定义文件后缀
-         */
-        int fileTypeFrom = catchStep.getFileTypeFrom();
-
-        // 1
-        if (1 == fileNameFrom && 1 == fileTypeFrom)
-            return UUID.randomUUID().toString() + catchStep.getFileType();
-
-        // 从地址中取出文件名称和类型
-        String fullNameFromUrl;
-        int a = url.lastIndexOf('/');
-        int b = url.indexOf('?');
-        int c = url.indexOf('#');
-        if (-1 == b && -1 == c)
-            fullNameFromUrl = url.substring(a + 1);
-        else
-            fullNameFromUrl = url.substring(a + 1, -1 == b ? c : b);
-
-        // 2
-        if (0 == fileNameFrom && 0 == fileTypeFrom)
-            return fullNameFromUrl;
-
-        int dotIndex = fullNameFromUrl.lastIndexOf('.');
-        String fileName;
-        String fileType;
-        if (-1 == dotIndex) {
-            fileName = fullNameFromUrl;
-            fileType = "";
-        } else {
-            fileName = fullNameFromUrl.substring(0, dotIndex);
-            fileType = fullNameFromUrl.substring(dotIndex);
-        }
-
-        String finalName;
-        if (0 == fileNameFrom)
-            finalName = fileName;
-        else if (1 == fileNameFrom)
-            finalName = UUID.randomUUID().toString();
-        else
-            finalName = replaceFileVar(catchStep.getFileName(), variables);
-
-        return finalName + (0 == fileTypeFrom ? fileType : catchStep.getFileType());
-    }
 
     public static void stop() {
         Downloader.stop();

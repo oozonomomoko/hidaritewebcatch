@@ -1,4 +1,4 @@
-package hidari;
+package hidari.util;
 
 import javax.swing.*;
 import java.text.SimpleDateFormat;

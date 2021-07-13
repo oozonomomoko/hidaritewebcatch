@@ -25,8 +25,9 @@ new FormModel {
 					"font": #Font0
 				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 					"x": 450
-					"y": 7
+					"y": 6
 					"width": 296
+					"height": 27
 				} )
 				add( new FormComponent( "javax.swing.JButton" ) {
 					name: "start"
@@ -53,9 +54,10 @@ new FormModel {
 					name: "proxy"
 					"font": #Font0
 				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-					"x": 240
-					"y": 7
+					"x": 228
+					"y": 6
 					"width": 140
+					"height": 27
 				} )
 				add( new FormComponent( "javax.swing.JButton" ) {
 					name: "addStep"
@@ -78,6 +80,17 @@ new FormModel {
 					"height": 29
 				} )
 				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "importBtn"
+					"text": "导入"
+					"font": #Font0
+					"background": #SwingColor0
+					"toolTipText": "请将配置信息粘贴到控制台"
+					addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "importConfig", true ) )
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 1039
+					"y": 6
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
 					name: "exportBtn"
 					"text": "导出"
 					"font": #Font0
@@ -86,22 +99,23 @@ new FormModel {
 					addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "exportMouseClicked", true ) )
 				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 					"x": 1100
-					"y": 7
+					"y": 6
 				} )
 				add( new FormComponent( "javax.swing.JTextField" ) {
 					name: "thCount"
 					"text": "20"
 				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 					"x": 960
-					"y": 10
+					"y": 8
 					"width": 40
+					"height": 26
 				} )
 				add( new FormComponent( "javax.swing.JLabel" ) {
 					name: "label3"
 					"text": "并发"
 				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 					"x": 930
-					"y": 15
+					"y": 13
 				} )
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 				"x": 0
@@ -122,7 +136,7 @@ new FormModel {
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 				"x": 5
 				"y": 35
-				"width": 1176
+				"width": 1185
 				"height": 453
 			} )
 			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
@@ -134,7 +148,7 @@ new FormModel {
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 				"x": 5
 				"y": 515
-				"width": 1174
+				"width": 1185
 				"height": 195
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
@@ -165,20 +179,9 @@ new FormModel {
 				"x": 10
 				"y": 495
 			} )
-			add( new FormComponent( "javax.swing.JButton" ) {
-				name: "importBtn"
-				"text": "导入"
-				"font": #Font0
-				"background": #SwingColor0
-				"toolTipText": "请将配置信息粘贴到控制台"
-				addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "importConfig", true ) )
-			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-				"x": 1025
-				"y": 7
-			} )
 		}, new FormLayoutConstraints( null ) {
 			"location": new java.awt.Point( 0, 0 )
-			"size": new java.awt.Dimension( 1190, 745 )
+			"size": new java.awt.Dimension( 1205, 745 )
 		} )
 	}
 }

@@ -6,7 +6,7 @@ package hidari.jframe;
 
 import com.alibaba.fastjson.JSON;
 import hidari.CatchStarter;
-import hidari.Log;
+import hidari.util.Log;
 import hidari.dto.CatchConfig;
 import hidari.dto.CatchStep;
 import hidari.dto.StepConfig;
@@ -187,6 +187,7 @@ public class MainFrame extends JFrame {
         proxy = new JTextField();
         addStep = new JButton();
         stop = new JButton();
+        importBtn = new JButton();
         exportBtn = new JButton();
         thCount = new JTextField();
         label3 = new JLabel();
@@ -197,7 +198,6 @@ public class MainFrame extends JFrame {
         clearConsole = new JButton();
         downloadProgress = new JProgressBar();
         label4 = new JLabel();
-        importBtn = new JButton();
 
         //======== this ========
         setBackground(Color.white);
@@ -226,7 +226,7 @@ public class MainFrame extends JFrame {
             //---- source ----
             source.setFont(new Font("Serif", Font.PLAIN, 12));
             topPanel.add(source);
-            source.setBounds(450, 7, 296, source.getPreferredSize().height);
+            source.setBounds(450, 6, 296, 27);
 
             //---- start ----
             start.setText("\u5f00\u59cb");
@@ -250,7 +250,7 @@ public class MainFrame extends JFrame {
             //---- proxy ----
             proxy.setFont(new Font("Serif", Font.PLAIN, 12));
             topPanel.add(proxy);
-            proxy.setBounds(240, 7, 140, proxy.getPreferredSize().height);
+            proxy.setBounds(228, 6, 140, 27);
 
             //---- addStep ----
             addStep.setText("\u65b0\u589e\u6b65\u9aa4");
@@ -274,6 +274,20 @@ public class MainFrame extends JFrame {
             topPanel.add(stop);
             stop.setBounds(835, 5, 70, 29);
 
+            //---- importBtn ----
+            importBtn.setText("\u5bfc\u5165");
+            importBtn.setFont(new Font("Serif", Font.PLAIN, 12));
+            importBtn.setBackground(UIManager.getColor("Button.background"));
+            importBtn.setToolTipText("\u8bf7\u5c06\u914d\u7f6e\u4fe1\u606f\u7c98\u8d34\u5230\u63a7\u5236\u53f0");
+            importBtn.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    importConfig(e);
+                }
+            });
+            topPanel.add(importBtn);
+            importBtn.setBounds(new Rectangle(new Point(1039, 6), importBtn.getPreferredSize()));
+
             //---- exportBtn ----
             exportBtn.setText("\u5bfc\u51fa");
             exportBtn.setFont(new Font("Serif", Font.PLAIN, 12));
@@ -286,17 +300,17 @@ public class MainFrame extends JFrame {
                 }
             });
             topPanel.add(exportBtn);
-            exportBtn.setBounds(new Rectangle(new Point(1100, 7), exportBtn.getPreferredSize()));
+            exportBtn.setBounds(new Rectangle(new Point(1100, 6), exportBtn.getPreferredSize()));
 
             //---- thCount ----
             thCount.setText("20");
             topPanel.add(thCount);
-            thCount.setBounds(960, 10, 40, thCount.getPreferredSize().height);
+            thCount.setBounds(960, 8, 40, 26);
 
             //---- label3 ----
             label3.setText("\u5e76\u53d1");
             topPanel.add(label3);
-            label3.setBounds(new Rectangle(new Point(930, 15), label3.getPreferredSize()));
+            label3.setBounds(new Rectangle(new Point(930, 13), label3.getPreferredSize()));
 
             { // compute preferred size
                 Dimension preferredSize = new Dimension();
@@ -328,7 +342,7 @@ public class MainFrame extends JFrame {
             scrollPane1.setViewportView(centerPane);
         }
         contentPane.add(scrollPane1);
-        scrollPane1.setBounds(5, 35, 1176, 453);
+        scrollPane1.setBounds(5, 35, 1185, 453);
 
         //======== consolePane ========
         {
@@ -338,7 +352,7 @@ public class MainFrame extends JFrame {
             consolePane.setViewportView(textArea1);
         }
         contentPane.add(consolePane);
-        consolePane.setBounds(5, 515, 1174, 195);
+        consolePane.setBounds(5, 515, 1185, 195);
 
         //---- clearConsole ----
         clearConsole.setText("\u6e05\u7a7a\u63a7\u5236\u53f0");
@@ -362,20 +376,6 @@ public class MainFrame extends JFrame {
         label4.setText("\u4e0b\u8f7d\u8fdb\u5ea6");
         contentPane.add(label4);
         label4.setBounds(new Rectangle(new Point(10, 495), label4.getPreferredSize()));
-
-        //---- importBtn ----
-        importBtn.setText("\u5bfc\u5165");
-        importBtn.setFont(new Font("Serif", Font.PLAIN, 12));
-        importBtn.setBackground(UIManager.getColor("Button.background"));
-        importBtn.setToolTipText("\u8bf7\u5c06\u914d\u7f6e\u4fe1\u606f\u7c98\u8d34\u5230\u63a7\u5236\u53f0");
-        importBtn.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                importConfig(e);
-            }
-        });
-        contentPane.add(importBtn);
-        importBtn.setBounds(new Rectangle(new Point(1025, 7), importBtn.getPreferredSize()));
 
         { // compute preferred size
             Dimension preferredSize = new Dimension();
@@ -411,6 +411,7 @@ public class MainFrame extends JFrame {
     private JTextField proxy;
     private JButton addStep;
     private JButton stop;
+    private JButton importBtn;
     private JButton exportBtn;
     private JTextField thCount;
     private JLabel label3;
@@ -421,7 +422,6 @@ public class MainFrame extends JFrame {
     private JButton clearConsole;
     private JProgressBar downloadProgress;
     private JLabel label4;
-    private JButton importBtn;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 
 

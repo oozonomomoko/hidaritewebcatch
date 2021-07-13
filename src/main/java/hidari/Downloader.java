@@ -2,6 +2,7 @@ package hidari;
 
 import hidari.dto.CatchConfig;
 import hidari.dto.Operate;
+import hidari.util.Log;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -23,6 +24,8 @@ import java.util.concurrent.Future;
  */
 public final class Downloader {
     public static Map<String, String> headers = new HashMap<>();
+
+    private static int MAX_BODY = 1024*124*20;
 
     private static ExecutorService thread;
 
@@ -74,9 +77,9 @@ public final class Downloader {
 
     private static Connection getConnection(String url) {
         if (null == CatchConfig.proxy) {
-            return Jsoup.connect(url).ignoreContentType(true).headers(headers).maxBodySize(10485760);
+            return Jsoup.connect(url).ignoreContentType(true).headers(headers).maxBodySize(MAX_BODY);
         } else {
-            return Jsoup.connect(url).ignoreContentType(true).headers(headers).maxBodySize(10485760).proxy(CatchConfig.proxy);
+            return Jsoup.connect(url).ignoreContentType(true).headers(headers).maxBodySize(MAX_BODY).proxy(CatchConfig.proxy);
         }
     }
 

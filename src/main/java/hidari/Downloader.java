@@ -25,19 +25,21 @@ import java.util.concurrent.Future;
 public final class Downloader {
     public static Map<String, String> headers = new HashMap<>();
 
-    private static int MAX_BODY = 1024*124*20;
+    private static int MAX_BODY = 1024 * 1024 * 20;
 
     private static ExecutorService thread;
 
-    public static void init(int downloadThCount){
+    public static void init(int downloadThCount, int maxSize) {
         if (null == thread || thread.isTerminated()) {
             Log.info("初始化下载线程：" + downloadThCount);
             thread = Executors.newFixedThreadPool(downloadThCount);
+            MAX_BODY = maxSize * 1024 * 1024;
         }
     }
+
     public static Future<?> download(String url, String filePath) {
         String format = url.replace("\\", "");
-        return thread.submit(()->{
+        return thread.submit(() -> {
             try {
                 File f = new File(filePath);
                 if (f.exists()) {
@@ -46,7 +48,7 @@ public final class Downloader {
                 }
                 Log.info(Operate.OPERATE_DOWNLOAD.getOperateName() + format + "--->" + filePath);
                 Connection.Response rsp = getConnection(format).execute();
-                try (BufferedInputStream bis = rsp.bodyStream()){
+                try (BufferedInputStream bis = rsp.bodyStream()) {
                     if (!f.getParentFile().exists())
                         f.getParentFile().mkdirs();
                     // 替换已存在的文件

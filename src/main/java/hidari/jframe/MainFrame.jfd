@@ -17,14 +17,14 @@ new FormModel {
 					"text": "初始地址"
 					"font": &Font0 new java.awt.Font( "Serif", 0, 12 )
 				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-					"x": 390
+					"x": 368
 					"y": 10
 				} )
 				add( new FormComponent( "javax.swing.JTextField" ) {
 					name: "source"
 					"font": #Font0
 				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-					"x": 450
+					"x": 428
 					"y": 6
 					"width": 296
 					"height": 27
@@ -36,7 +36,7 @@ new FormModel {
 					"font": #Font0
 					addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "startMouseClicked", true ) )
 				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-					"x": 750
+					"x": 740
 					"y": 5
 					"width": 70
 					"height": 29
@@ -56,7 +56,7 @@ new FormModel {
 				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 					"x": 228
 					"y": 6
-					"width": 140
+					"width": 127
 					"height": 27
 				} )
 				add( new FormComponent( "javax.swing.JButton" ) {
@@ -74,7 +74,7 @@ new FormModel {
 					"text": "停止"
 					addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "stopMouseClicked", true ) )
 				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-					"x": 835
+					"x": 820
 					"y": 5
 					"width": 70
 					"height": 29
@@ -87,8 +87,8 @@ new FormModel {
 					"toolTipText": "请将配置信息粘贴到控制台"
 					addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "importConfig", true ) )
 				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-					"x": 1039
-					"y": 6
+					"x": 1065
+					"y": 5
 				} )
 				add( new FormComponent( "javax.swing.JButton" ) {
 					name: "exportBtn"
@@ -98,15 +98,15 @@ new FormModel {
 					"toolTipText": "导出当前配置到控制台"
 					addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "exportMouseClicked", true ) )
 				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-					"x": 1100
-					"y": 6
+					"x": 1130
+					"y": 5
 				} )
 				add( new FormComponent( "javax.swing.JTextField" ) {
 					name: "thCount"
 					"text": "20"
 				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-					"x": 960
-					"y": 8
+					"x": 934
+					"y": 7
 					"width": 40
 					"height": 26
 				} )
@@ -114,13 +114,29 @@ new FormModel {
 					name: "label3"
 					"text": "并发"
 				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-					"x": 930
+					"x": 909
 					"y": 13
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "label5"
+					"text": "大小(M)"
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 980
+					"y": 13
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "maxSize"
+					"text": "20"
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 1023
+					"y": 6
+					"width": 35
+					"height": 25
 				} )
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 				"x": 0
 				"y": 0
-				"width": 1170
+				"width": 1190
 				"height": 40
 			} )
 			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {

@@ -43,13 +43,13 @@ public class CatchStarter {
     /**
      * 初始化爬虫线程，单线程
      */
-    private static void init(int downloadThCount) {
+    private static void init(int downloadThCount, int maxSize) {
         if (null == thread || thread.isTerminated()) {
             Log.info("初始化主线程");
             thread = Executors.newSingleThreadExecutor();
         }
         // 初始化下载线程
-        Downloader.init(downloadThCount);
+        Downloader.init(downloadThCount, maxSize);
     }
 
 
@@ -71,11 +71,11 @@ public class CatchStarter {
      * @param steps
      * @param source
      */
-    public static synchronized void start(CatchStep steps, String source, int thCount) {
+    public static synchronized void start(CatchStep steps, String source, int thCount, int maxSize) {
         // 判断任务是否在执行
         if (isWorking.compareAndSet(false, true)) {
             // 初始化爬虫
-            init(thCount);
+            init(thCount,maxSize);
             thread.submit(() -> {
                 // 步骤数量
                 downloadProgress.setMaximum(0);

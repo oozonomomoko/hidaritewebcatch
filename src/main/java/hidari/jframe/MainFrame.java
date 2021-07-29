@@ -129,7 +129,7 @@ public class MainFrame extends JFrame {
                 return;
             }
             try {
-                CatchStarter.start(steps, source.getText(), Integer.valueOf(thCount.getText()));
+                CatchStarter.start(steps, source.getText(), Integer.valueOf(thCount.getText()), Integer.valueOf(maxSize.getText()));
             }catch (Exception e1) {
                 e1.printStackTrace();
             }
@@ -191,6 +191,8 @@ public class MainFrame extends JFrame {
         exportBtn = new JButton();
         thCount = new JTextField();
         label3 = new JLabel();
+        label5 = new JLabel();
+        maxSize = new JTextField();
         scrollPane1 = new JScrollPane();
         centerPane = new JPanel();
         consolePane = new JScrollPane();
@@ -221,12 +223,12 @@ public class MainFrame extends JFrame {
             label1.setText("\u521d\u59cb\u5730\u5740");
             label1.setFont(new Font("Serif", Font.PLAIN, 12));
             topPanel.add(label1);
-            label1.setBounds(new Rectangle(new Point(390, 10), label1.getPreferredSize()));
+            label1.setBounds(new Rectangle(new Point(368, 10), label1.getPreferredSize()));
 
             //---- source ----
             source.setFont(new Font("Serif", Font.PLAIN, 12));
             topPanel.add(source);
-            source.setBounds(450, 6, 296, 27);
+            source.setBounds(428, 6, 296, 27);
 
             //---- start ----
             start.setText("\u5f00\u59cb");
@@ -239,7 +241,7 @@ public class MainFrame extends JFrame {
                 }
             });
             topPanel.add(start);
-            start.setBounds(750, 5, 70, 29);
+            start.setBounds(740, 5, 70, 29);
 
             //---- label2 ----
             label2.setText("\u4ee3\u7406\u8bbe\u7f6e(ip:port)");
@@ -250,7 +252,7 @@ public class MainFrame extends JFrame {
             //---- proxy ----
             proxy.setFont(new Font("Serif", Font.PLAIN, 12));
             topPanel.add(proxy);
-            proxy.setBounds(228, 6, 140, 27);
+            proxy.setBounds(228, 6, 127, 27);
 
             //---- addStep ----
             addStep.setText("\u65b0\u589e\u6b65\u9aa4");
@@ -272,7 +274,7 @@ public class MainFrame extends JFrame {
                 }
             });
             topPanel.add(stop);
-            stop.setBounds(835, 5, 70, 29);
+            stop.setBounds(820, 5, 70, 29);
 
             //---- importBtn ----
             importBtn.setText("\u5bfc\u5165");
@@ -286,7 +288,7 @@ public class MainFrame extends JFrame {
                 }
             });
             topPanel.add(importBtn);
-            importBtn.setBounds(new Rectangle(new Point(1039, 6), importBtn.getPreferredSize()));
+            importBtn.setBounds(new Rectangle(new Point(1065, 5), importBtn.getPreferredSize()));
 
             //---- exportBtn ----
             exportBtn.setText("\u5bfc\u51fa");
@@ -300,17 +302,27 @@ public class MainFrame extends JFrame {
                 }
             });
             topPanel.add(exportBtn);
-            exportBtn.setBounds(new Rectangle(new Point(1100, 6), exportBtn.getPreferredSize()));
+            exportBtn.setBounds(new Rectangle(new Point(1130, 5), exportBtn.getPreferredSize()));
 
             //---- thCount ----
             thCount.setText("20");
             topPanel.add(thCount);
-            thCount.setBounds(960, 8, 40, 26);
+            thCount.setBounds(934, 7, 40, 26);
 
             //---- label3 ----
             label3.setText("\u5e76\u53d1");
             topPanel.add(label3);
-            label3.setBounds(new Rectangle(new Point(930, 13), label3.getPreferredSize()));
+            label3.setBounds(new Rectangle(new Point(909, 13), label3.getPreferredSize()));
+
+            //---- label5 ----
+            label5.setText("\u5927\u5c0f(M)");
+            topPanel.add(label5);
+            label5.setBounds(new Rectangle(new Point(980, 13), label5.getPreferredSize()));
+
+            //---- maxSize ----
+            maxSize.setText("20");
+            topPanel.add(maxSize);
+            maxSize.setBounds(1023, 6, 35, 25);
 
             { // compute preferred size
                 Dimension preferredSize = new Dimension();
@@ -327,7 +339,7 @@ public class MainFrame extends JFrame {
             }
         }
         contentPane.add(topPanel);
-        topPanel.setBounds(0, 0, 1170, 40);
+        topPanel.setBounds(0, 0, 1190, 40);
 
         //======== scrollPane1 ========
         {
@@ -415,6 +427,8 @@ public class MainFrame extends JFrame {
     private JButton exportBtn;
     private JTextField thCount;
     private JLabel label3;
+    private JLabel label5;
+    private JTextField maxSize;
     private JScrollPane scrollPane1;
     private JPanel centerPane;
     private JScrollPane consolePane;

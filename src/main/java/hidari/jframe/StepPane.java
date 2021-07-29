@@ -289,10 +289,10 @@ public class StepPane extends JPanel {
             attrName.setBounds(529, 0, 200, attrName.getPreferredSize().height);
 
             //---- attrNameLabel ----
-            attrNameLabel.setText("\u6807\u7b7e\u5c5e\u6027\u540d");
+            attrNameLabel.setText("->");
             attrNameLabel.setFont(new Font("\u5fae\u8f6f\u96c5\u9ed1", Font.PLAIN, 12));
             cssPane.add(attrNameLabel);
-            attrNameLabel.setBounds(new Rectangle(new Point(441, 4), attrNameLabel.getPreferredSize()));
+            attrNameLabel.setBounds(new Rectangle(new Point(447, 5), attrNameLabel.getPreferredSize()));
 
             { // compute preferred size
                 Dimension preferredSize = new Dimension();
@@ -415,6 +415,7 @@ public class StepPane extends JPanel {
         attrType.addItem(Operate.TAG_ATTR);
         attrType.addItem(Operate.TAG_CONTENT);
         attrType.addItem(Operate.TAG_ALL);
+        attrType.addItem(Operate.TAG_VAR);
 
         operateType.addItem(Operate.OPERATE_DOWNLOAD);
         operateType.addItem(Operate.OPERATE_REGRESULT);

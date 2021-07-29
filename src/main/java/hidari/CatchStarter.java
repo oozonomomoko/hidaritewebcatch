@@ -7,6 +7,7 @@ import hidari.util.Log;
 import hidari.util.Pair;
 import hidari.util.RegUtil;
 import hidari.util.VarUtil;
+import org.jsoup.internal.StringUtil;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -207,6 +208,12 @@ public class CatchStarter {
                             for (Element ele : eles) {
                                 temp.add(ele.toString());
                             }
+                        } else if (3 == catchStep.getAttrType()) {
+                            if (eles.size() != 0) {
+                                variables.put(catchStep.getAttrName(), eles.get(0).toString());
+                            }
+                            start(catchStep.getNext(), url, index, variables, downloadResults);
+                            continue;
                         }
 //                        Log.info(logpre + Operate.OPERATE_CSSRESULT.getOperateName() + url + "-->" + temp);
                         start(catchStep.getNext(), temp, index, variables, downloadResults);
@@ -322,6 +329,9 @@ public class CatchStarter {
     }
 
     private static Pair<Boolean, Integer> parsePage(String str) {
+        if (StringUtil.isBlank(str) || str.startsWith("{")) {
+            return new Pair<>(false, 1);
+        }
         if (str.length() != 1) {
             return new Pair<>(false, Integer.valueOf(str));
         }

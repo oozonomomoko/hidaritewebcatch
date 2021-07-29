@@ -27,6 +27,7 @@ public enum Operate {
     TAG_ATTR(0, "[获取标签指定属性值]"),
     TAG_CONTENT(1, "[innerHTML]"),
     TAG_ALL(2, "[outterHTML]"),
+    TAG_VAR(3, "[设置变量]"),
 
     //VAR_SET(1, "[替换变量]"),
     VAR_ADD(0, "[新增变量]");

@@ -193,11 +193,11 @@ new FormModel {
 				} )
 				add( new FormComponent( "javax.swing.JLabel" ) {
 					name: "attrNameLabel"
-					"text": "标签属性名"
+					"text": "->"
 					"font": #Font0
 				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-					"x": 441
-					"y": 4
+					"x": 447
+					"y": 5
 				} )
 			} )
 			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {

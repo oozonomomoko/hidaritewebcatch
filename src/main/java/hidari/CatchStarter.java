@@ -210,7 +210,7 @@ public class CatchStarter {
                             }
                         } else if (3 == catchStep.getAttrType()) {
                             if (eles.size() != 0) {
-                                variables.put(catchStep.getAttrName(), eles.get(0).toString());
+                                variables.put(catchStep.getAttrName(), eles.get(0).html());
                             }
                             start(catchStep.getNext(), url, index, variables, downloadResults);
                             continue;
